@@ -1,62 +1,211 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <title>CipherWhale Portfolio</title>
-  <!-- Tailwind via CDN -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>William Hale | Resume & CV</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-white text-black">
-  <main class="p-6 max-w-4xl mx-auto space-y-8">
-    <header class="text-center">
-      <h1 class="text-4xl font-bold tracking-tight">CipherWhale</h1>
-      <p class="text-lg text-gray-600">
-        Electrical engineer by day, physics enthusiast by night.
-      </p>
+<body class="bg-slate-50 text-slate-900">
+  <main class="max-w-5xl mx-auto px-6 py-10 space-y-10">
+    <header class="flex flex-col items-start gap-2 sm:flex-row sm:items-center sm:justify-between">
+      <div>
+        <p class="text-sm uppercase tracking-[0.3em] text-slate-500">Electrical Engineer</p>
+        <h1 class="text-4xl font-bold tracking-tight text-slate-900">William Hale</h1>
+        <p class="text-slate-600">Microwave primary-standards specialist and physics enthusiast.</p>
+      </div>
+      <div class="text-sm text-slate-700 space-y-1">
+        <p><a class="text-blue-700 hover:underline" href="mailto:williamhaleaemail@gmail.com">williamhaleaemail@gmail.com</a></p>
+        <p><a class="text-blue-700 hover:underline" href="tel:+15059342340">(505) 934-2340</a></p>
+        <p>5450 Jackson Loop NE, Rio Rancho, NM 87144</p>
+      </div>
     </header>
 
-    <section class="space-y-4">
-      <h2 class="text-2xl font-semibold">About Me</h2>
-      <p>
-        I’m William Hale—an electrical engineer working in a microwave primary-standards lab while taking physics classes part-time.
-        In my free time I tinker with hydrodynamic quantum analog (HQA) simulations and explore galaxy rotation-curve modeling.
-        Balancing a full-time job, late nights, and half-earnest research is a challenge, but I’m driven by curiosity and grit.
-      </p>
+    <section class="grid gap-6 lg:grid-cols-[2fr,1fr]">
+      <div class="bg-white shadow-sm ring-1 ring-slate-200 rounded-xl p-6 space-y-4">
+        <h2 class="text-2xl font-semibold">Resume Snapshot</h2>
+        <p class="text-slate-700">
+          Electrical engineer at Sandia National Laboratories working in microwave calibration and process automation,
+          while pursuing research in materials and physics. FE certified and passionate about rigorous measurement,
+          modeling, and hands-on prototyping.
+        </p>
+        <div class="grid gap-4 sm:grid-cols-2">
+          <div>
+            <h3 class="text-lg font-semibold text-slate-900">Education</h3>
+            <ul class="mt-2 space-y-2 text-sm text-slate-800">
+              <li>
+                <div class="font-semibold">M.S. Materials Engineering</div>
+                <div>New Mexico Tech (Jun 2020 – Jan 2022)</div>
+                <div>Thesis: A-site Access and Oxygen Deficient LaMnMn<sub>2</sub>O<sub>5</sub> (GEM ORR Catalyst)</div>
+                <div>GPA: 4.0</div>
+              </li>
+              <li>
+                <div class="font-semibold">B.S. Electrical Engineering &amp; B.S. Chemical Engineering</div>
+                <div>New Mexico Tech (Aug 2017 – May 2020)</div>
+                <div>Graduated with honors, GPA 3.97 / 4.00</div>
+                <div>FE Certified (2020); Senior Project: Atmospheric Plasma &amp; Glow Discharge System</div>
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold text-slate-900">Highlights</h3>
+            <ul class="mt-2 space-y-2 text-sm text-slate-800 list-disc list-inside">
+              <li>Sandia Electrical Engineer (2022–Present) supporting primary standards lab and ISO 17025 calibration.</li>
+              <li>Process Engineer Intern at Intel focused on e-test process and mass metrology correlation.</li>
+              <li>Research experience in electrochemical CO<sub>2</sub> capture, computational materials (VASP), and solvent effects.</li>
+              <li>Teaching assistant for chemical engineering and materials courses; tutoring experience.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="bg-sky-50 ring-1 ring-sky-200 rounded-xl p-6 space-y-3">
+        <h3 class="text-xl font-semibold text-sky-900">Technical Skills</h3>
+        <div class="space-y-2 text-sm text-slate-800">
+          <div>
+            <p class="font-semibold">Programming</p>
+            <p>Python, MATLAB/GNU Octave, JavaScript (ES6), C/C++ basics, Verilog/VHDL</p>
+          </div>
+          <div>
+            <p class="font-semibold">Software &amp; Tools</p>
+            <p>VASP, Quantum ESPRESSO, MATLAB, VESTA, GIMP, Inkscape, LTSpice, Cadence PCB, ChemCAD, Git</p>
+          </div>
+          <div>
+            <p class="font-semibold">Hardware</p>
+            <p>RF/microwave calibration, analog &amp; digital filters, AVR ATmega microcontrollers, FPGAs</p>
+          </div>
+          <div>
+            <p class="font-semibold">Certifications &amp; Memberships</p>
+            <p>FE (Chemical) certified; Tau Beta Pi; Eta Kappa Nu; ACS; IEEE (2019); Sigma Alpha Pi</p>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="space-y-4">
-      <h2 class="text-2xl font-semibold">Projects &amp; Interests</h2>
-      <ul class="list-disc pl-5 space-y-2">
-        <li>
-          <strong>HQA Simulation</strong> – Building a droplet-wave model to mimic quantum-like effects in an EM bath.
-        </li>
-        <li>
-          <strong>Gravito-Electromagnetic Curves</strong> – Exploratory code for self-interaction modifications to galaxy rotation profiles.
-        </li>
-        <li>
-          <strong>Physics Coursework</strong> – Currently enrolled in classical mechanics, electromagnetism, and GR fundamentals.
-        </li>
-      </ul>
+    <section class="bg-white shadow-sm ring-1 ring-slate-200 rounded-xl p-6 space-y-6">
+      <div class="flex flex-col gap-2">
+        <h2 class="text-2xl font-semibold">Curriculum Vitae</h2>
+        <p class="text-slate-700">A detailed look at roles, research, and honors.</p>
+      </div>
+      <div class="space-y-5">
+        <article class="space-y-2">
+          <div class="flex items-baseline justify-between flex-wrap gap-2">
+            <h3 class="text-xl font-semibold">Electrical Engineer</h3>
+            <p class="text-sm text-slate-600">Sandia National Laboratories — Jan 2022 to Present</p>
+          </div>
+          <ul class="list-disc list-inside text-sm text-slate-800 space-y-1">
+            <li>Work in microwave primary standards lab supporting calibration and measurement automation.</li>
+            <li>Perform data analysis and measurement automation across RF standards and tools.</li>
+            <li>Specialize in S-parameters and power sensor calibration with ISO 17025 compliance.</li>
+            <li>Drive process improvements and lead tool-set and process development initiatives.</li>
+          </ul>
+        </article>
+
+        <article class="space-y-2">
+          <div class="flex items-baseline justify-between flex-wrap gap-2">
+            <h3 class="text-xl font-semibold">Process Engineer Intern</h3>
+            <p class="text-sm text-slate-600">Intel Corporation — Dec 2021 to Aug 2022</p>
+          </div>
+          <ul class="list-disc list-inside text-sm text-slate-800 space-y-1">
+            <li>Improved e-test process and measurement accuracy for advanced nodes.</li>
+            <li>Analyzed high- and medium-volume measurements and correlation to mass metrology.</li>
+            <li>Managed experiments, process reliability assessments, and statistical methods for yield improvements.</li>
+          </ul>
+        </article>
+
+        <article class="space-y-2">
+          <div class="flex items-baseline justify-between flex-wrap gap-2">
+            <h3 class="text-xl font-semibold">Graduate Teaching &amp; Research Assistant</h3>
+            <p class="text-sm text-slate-600">New Mexico Tech — Aug 2019 to Dec 2020</p>
+          </div>
+          <ul class="list-disc list-inside text-sm text-slate-800 space-y-1">
+            <li>Teaching assistant for undergraduate chemical engineering and materials courses.</li>
+            <li>Supported hands-on labs, grading, and mentoring for course capstone projects.</li>
+          </ul>
+        </article>
+
+        <article class="space-y-2">
+          <div class="flex items-baseline justify-between flex-wrap gap-2">
+            <h3 class="text-xl font-semibold">Graduate Assistant – Solution Methods for Chemical Engineers</h3>
+            <p class="text-sm text-slate-600">New Mexico Tech — Aug 2020 to Dec 2020</p>
+          </div>
+          <ul class="list-disc list-inside text-sm text-slate-800 space-y-1">
+            <li>Provided tutoring and review sessions in transport phenomena and computational methods.</li>
+          </ul>
+        </article>
+
+        <article class="space-y-2">
+          <div class="flex items-baseline justify-between flex-wrap gap-2">
+            <h3 class="text-xl font-semibold">Research Assistant – Electrochemical CO<sub>2</sub> Capture</h3>
+            <p class="text-sm text-slate-600">New Mexico Tech — May 2019 to Aug 2020</p>
+          </div>
+          <ul class="list-disc list-inside text-sm text-slate-800 space-y-1">
+            <li>Supported analysis of supporting carbonate species and scripts for electrochemical workflows.</li>
+            <li>Worked under Dr. Fiore to model solvent effects and electrochemical pathways.</li>
+          </ul>
+        </article>
+
+        <article class="space-y-2">
+          <div class="flex items-baseline justify-between flex-wrap gap-2">
+            <h3 class="text-xl font-semibold">Research Assistant – Materials/Instrumentation</h3>
+            <p class="text-sm text-slate-600">UNM Nanoscience &amp; Microsystems REU — May 2017 to Aug 2017</p>
+          </div>
+          <ul class="list-disc list-inside text-sm text-slate-800 space-y-1">
+            <li>Built and characterized a Co planar cathode and sensor calibration hardware.</li>
+            <li>Developed instrumentation for microscale sensor applications.</li>
+          </ul>
+        </article>
+      </div>
     </section>
 
-    <section class="space-y-4">
-      <h2 class="text-2xl font-semibold">Background</h2>
-      <ul class="list-disc pl-5 space-y-2">
-        <li>B.S. in Electrical &amp; Chemical Engineering (New Mexico Tech)</li>
-        <li>Working full-time in a microwave primary-standards lab</li>
-        <li>FE certified, studying toward PE</li>
-        <li>Part-time physics student and aspiring GR researcher</li>
-      </ul>
+
+    <section class="bg-white shadow-sm ring-1 ring-slate-200 rounded-xl p-6 space-y-3">
+        <h3 class="text-xl font-semibold">Recent UNM Coursework</h3>
+        <p class="text-sm text-slate-700">Classes recently completed or currently in progress.</p>
+        <div class="grid gap-4 sm:grid-cols-2 text-sm text-slate-800">
+          <div>
+            <p class="font-semibold">Undergraduate</p>
+            <ul class="mt-1 list-disc list-inside space-y-1">
+              <li>Analytical Mechanics I</li>
+              <li>Intermediate Quantum Mechanics I</li>
+              <li>Math Methods of Physics</li>
+              <li>Complex Analysis</li>
+            </ul>
+          </div>
+          <div>
+            <p class="font-semibold">Graduate</p>
+            <ul class="mt-1 list-disc list-inside space-y-1">
+              <li>Electrodynamics</li>
+              <li>Introduction to PDEs</li>
+            </ul>
+          </div>
+        </div>
     </section>
 
-    <section class="space-y-4">
-      <h2 class="text-2xl font-semibold">Contact</h2>
-      <p>
-        GitHub: <a class="text-blue-600 underline" href="https://github.com/cipherwhale">@cipherwhale</a><br/>
-        Live at <code>cipherwhale.github.io</code>
-      </p>
+    <section class="grid gap-6 lg:grid-cols-2">
+      <div class="bg-white shadow-sm ring-1 ring-slate-200 rounded-xl p-6 space-y-3">
+        <h3 class="text-xl font-semibold">Notable Projects</h3>
+        <ul class="list-disc list-inside text-sm text-slate-800 space-y-2">
+          <li>Atmospheric plasma &amp; glow discharge system for senior design (EE project).</li>
+          <li>Microwave filter design and soldering for propulsion R&amp;D (undergraduate/graduate studies).</li>
+          <li>Computational modeling with VASP and Quantum ESPRESSO for ORR/OER catalyst research.</li>
+          <li>Hydrodynamic quantum analog simulations and gravito-electromagnetic rotation-curve exploration.</li>
+        </ul>
+      </div>
+      <div class="bg-white shadow-sm ring-1 ring-slate-200 rounded-xl p-6 space-y-3">
+        <h3 class="text-xl font-semibold">Awards &amp; Honors</h3>
+        <ul class="list-disc list-inside text-sm text-slate-800 space-y-2">
+          <li>Dean's List (2018–2020) and Tau Beta Pi scholarship recipient.</li>
+          <li>Presidential STEM Scholarship for academic achievement.</li>
+          <li>Tau Beta Pi Fellowship (Fall 2019) and Eta Kappa Nu member (2019).</li>
+          <li>Various research poster awards including National AAAS STEM poster presentation.</li>
+        </ul>
+      </div>
     </section>
+
+    <footer class="text-center text-xs text-slate-500 pt-4">
+      Updated with current resume and CV details.
+    </footer>
   </main>
 </body>
 </html>
