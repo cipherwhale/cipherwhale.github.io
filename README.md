@@ -1,10 +1,15 @@
+
+
 # William Hale — Interstellar Portfolio
 
 ## Run locally
+
 ```bash
 npm install
 npm run dev
 ```
+
+
 
 ## Build
 ```bash
@@ -19,3 +24,4 @@ npm run start
 4. Deploy production: `vercel --prod`
 
 > Update the Formspree endpoint in `app/page.tsx` before production.
+
