@@ -1,31 +1,27 @@
-# William Hale — Interstellar Portfolio (GitHub Pages Edition)
 
-Static, client-only portfolio built with **Vite 6 + React 19 + TypeScript**.
 
-## Local development
+# William Hale — Interstellar Portfolio
+
+## Run locally
+
 ```bash
 npm install
 npm run dev
 ```
 
-## Production build
+
+
+## Build
 ```bash
 npm run build
+npm run start
 ```
 
-Build output is generated in:
-- `dist/`
+## Deploy to Vercel
+1. Install Vercel CLI: `npm i -g vercel`
+2. Login: `vercel login`
+3. Deploy preview: `vercel`
+4. Deploy production: `vercel --prod`
 
-## GitHub Pages deploy (manual)
-```bash
-npm run deploy
-```
+> Update the Formspree endpoint in `app/page.tsx` before production.
 
-This uses `gh-pages` to publish `dist/` to the `gh-pages` branch.
-
-## Optional GitHub Actions deploy (on push to main)
-Use `.github/workflows/deploy.yml` included in this repo.
-
-## Notes
-- Contact form uses Formspree endpoint placeholder in `src/sections/ContactSection.tsx`.
-- Replace `https://formspree.io/f/your-form-id` with your real Formspree form ID.
