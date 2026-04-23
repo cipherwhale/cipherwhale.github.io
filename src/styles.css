@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root { color-scheme: dark; }
+body {
+  margin: 0;
+  background: linear-gradient(180deg, #0a0a1f 0%, #1a1133 100%);
+}
+
+.panel {
+  @apply rounded-2xl border border-cyan-400/30 bg-slate-950/60 p-6 backdrop-blur;
+}
+
+.section-title {
+  @apply mb-3 text-2xl font-display tracking-[0.08em] text-space-cyan;
+  text-shadow: 0 0 20px rgba(0, 240, 255, 0.35);
+}
+
+.title-glow {
+  text-shadow: 0 0 20px rgba(0, 240, 255, 0.4), 0 0 38px rgba(255, 0, 170, 0.25);
+}
+
+.btn {
+  @apply rounded-full border border-cyan-300/70 px-6 py-3 uppercase tracking-[0.2em] text-space-cyan transition;
+}
+.btn:hover { transform: scale(1.03); box-shadow: 0 0 18px rgba(0,240,255,.35); }
+
+.field {
+  @apply w-full rounded-lg border border-cyan-400/40 bg-slate-950/60 px-3 py-2 text-space-text;
+}
+
+.skill {
+  @apply rounded-xl border border-magenta-400/30 bg-slate-950/55 p-4;
+}
+
+.muted { @apply text-space-muted; }
+
+.tesseract {
+  background-image:
+   linear-gradient(rgba(0,240,255,0.06) 1px, transparent 1px),
+   linear-gradient(90deg, rgba(255,0,170,0.06) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.wormhole-panel {
+  background: radial-gradient(circle at center, rgba(0,240,255,0.12), rgba(10,10,31,0.7));
+}
