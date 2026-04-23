@@ -1,27 +1,12 @@
+# Hello World Page
 
+This repo now serves a simple static `index.html`.
 
-# William Hale — Interstellar Portfolio
+## Deploy on GitHub Pages (no build step)
+1. Push this branch to GitHub.
+2. In GitHub repo settings, open **Pages**.
+3. Set **Source** to **Deploy from a branch**.
+4. Select branch: `main`, folder: `/ (root)`.
+5. Save.
 
-## Run locally
-
-```bash
-npm install
-npm run dev
-```
-
-
-
-## Build
-```bash
-npm run build
-npm run start
-```
-
-## Deploy to Vercel
-1. Install Vercel CLI: `npm i -g vercel`
-2. Login: `vercel login`
-3. Deploy preview: `vercel`
-4. Deploy production: `vercel --prod`
-
-> Update the Formspree endpoint in `app/page.tsx` before production.
-
+GitHub Pages will publish `index.html` directly.
