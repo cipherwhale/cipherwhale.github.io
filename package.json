@@ -1,0 +1,36 @@
+{
+  "name": "william-hale-interstellar-portfolio",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist",
+    "validate:json": "node -e \"JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('package.json valid')\""
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^4.1.0",
+    "@react-three/drei": "^9.122.0",
+    "@react-three/fiber": "^8.17.10",
+    "framer-motion": "^11.18.2",
+    "lenis": "^1.1.20",
+    "react": "18.3.1",
+    "react-dom": "18.3.1",
+    "react-hook-form": "^7.54.2",
+    "three": "^0.168.0",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/react": "18.3.12",
+    "@types/react-dom": "18.3.1",
+    "@vitejs/plugin-react-swc": "^3.8.0",
+    "autoprefixer": "^10.4.20",
+    "gh-pages": "^6.3.0",
+    "postcss": "^8.5.3",
+    "tailwindcss": "^3.4.17",
+    "typescript": "^5.8.2",
+    "vite": "^6.3.5"
+  }
+}
