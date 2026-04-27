@@ -10,10 +10,3 @@ This repo now serves a simple static `index.html`.
 5. Save.
 
 GitHub Pages will publish `index.html` directly.
-
-
-## Quick sanity check
-```bash
-npm run validate:json
-```
-Use this before `npm ci` if GitHub Actions reports an EJSONPARSE error.

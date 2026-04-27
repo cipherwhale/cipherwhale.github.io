@@ -19,8 +19,8 @@ jobs:
       - run: find .github -maxdepth 3 -type f 2>/dev/null | sort
       - run: git status --short
       - run: git log --oneline -3
-      - run: node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('valid package.json')"
-      - run: npm install
+      - run: npm ci
+
       - run: npm run build
       - run: npx gh-pages -d dist
         env:
