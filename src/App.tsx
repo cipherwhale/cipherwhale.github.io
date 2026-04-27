@@ -1,4 +1,5 @@
 import { Suspense, lazy, useEffect, useState } from "react";
+import type { ReactNode } from "react";
 import Lenis from "lenis";
 import { motion } from "framer-motion";
 import SpaceBackground from "./components/SpaceBackground";
@@ -13,7 +14,7 @@ const SkillsSection = lazy(() => import("./sections/SkillsSection"));
 const CurrentExpeditionSection = lazy(() => import("./sections/CurrentExpeditionSection"));
 const ContactSection = lazy(() => import("./sections/ContactSection"));
 
-function RevealSection({ children }: { children: React.ReactNode }) {
+function RevealSection({ children }: { children: ReactNode }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 30 }}
