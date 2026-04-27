@@ -232,7 +232,8 @@ body::before {
 
 .clock-hand {
   stroke-linecap: round;
-  transition: transform 150ms steps(1, end);
+  transition: none;
+  will-change: transform;
 }
 
 .clock-hand.hour {
@@ -249,7 +250,7 @@ body::before {
   fill: rgba(149, 193, 253, 0.28);
   stroke: rgba(205, 27, 87, 0.22);
   stroke-width: 1;
-  transition: opacity 120ms ease;
+  transition: opacity 90ms linear;
 }
 
 .clock-center {
