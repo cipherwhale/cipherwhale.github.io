@@ -19,6 +19,14 @@ jobs:
       - run: find .github -maxdepth 3 -type f 2>/dev/null | sort
       - run: git status --short
       - run: git log --oneline -3
+      - run: rm package-lock.json
+      - run: rm -rf node_modules
+      - run: npm install
+      - run: npm ci
+      - run: npm run build
+      - run: git add package.json package-lock.json
+      - run: git commit -m "Regenerate package lock"
+      - run: git push
       - run: npm ci
 
       - run: npm run build
