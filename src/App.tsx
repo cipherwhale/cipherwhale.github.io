@@ -2,6 +2,8 @@ import { Suspense, lazy, useEffect, useState } from "react";
 import Lenis from "lenis";
 import { motion } from "framer-motion";
 import SpaceBackground from "./components/SpaceBackground";
+import BackgroundClock from "./components/BackgroundClock";
+import { useSmoothScrollProgress } from "./hooks/useSmoothScrollProgress";
 
 const AboutSection = lazy(() => import("./sections/AboutSection"));
 const EducationSection = lazy(() => import("./sections/EducationSection"));
@@ -11,11 +13,25 @@ const SkillsSection = lazy(() => import("./sections/SkillsSection"));
 const CurrentExpeditionSection = lazy(() => import("./sections/CurrentExpeditionSection"));
 const ContactSection = lazy(() => import("./sections/ContactSection"));
 
+function RevealSection({ children }: { children: React.ReactNode }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, amount: 0.14 }}
+      transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 export default function App() {
   const [time, setTime] = useState("");
+  const scrollProgress = useSmoothScrollProgress();
 
   useEffect(() => {
-    const lenis = new Lenis({ duration: 1.1 });
+    const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
     let frame = 0;
     const raf = (t: number) => {
       lenis.raf(t);
@@ -36,16 +52,46 @@ export default function App() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-space-deep text-space-text font-body">
+    <div className="relative min-h-screen overflow-hidden bg-space-deep text-space-text font-body">
       <SpaceBackground />
-      <header className="relative flex min-h-screen items-center justify-center px-4 text-center">
+      <BackgroundClock progress={scrollProgress} />
+
+      <header className="relative z-10 flex min-h-screen items-center justify-center px-4 text-center">
         <div className="absolute top-6 right-6 text-xs text-space-muted">Current Mission: Albuquerque, NM · {time}</div>
-        <div>
-          <motion.h1 initial={{ opacity: 0, y: 18 }} animate={{ opacity: 1, y: 0 }} className="title-glow text-5xl md:text-8xl font-display tracking-[0.3em]">
+        <div className="hero-copy">
+          <motion.p
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+            className="mb-4 text-xs uppercase tracking-[0.42em] text-space-muted"
+          >
+            Engineer · Researcher · Explorer
+          </motion.p>
+          <motion.h1
+            initial={{ opacity: 0, y: 18 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.9, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="title-glow text-5xl md:text-8xl font-display tracking-[0.3em]"
+          >
             WILLIAM HALE
           </motion.h1>
-          <p className="mt-4 text-space-muted">Electrical Engineer • Materials Scientist • Explorer of Spacetime</p>
-          <a className="btn mt-8 inline-block" href="#mission-brief">Enter the Wormhole</a>
+          <motion.p
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+            className="mx-auto mt-5 max-w-2xl text-space-muted"
+          >
+            Electrical Engineer • Materials Scientist • Explorer of Spacetime
+          </motion.p>
+          <motion.a
+            initial={{ opacity: 0, y: 14 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.75, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
+            className="btn mt-8 inline-block"
+            href="#mission-brief"
+          >
+            Enter the Wormhole
+          </motion.a>
         </div>
       </header>
 
@@ -61,15 +107,15 @@ export default function App() {
         </ul>
       </nav>
 
-      <main className="mx-auto w-[min(94%,1100px)] space-y-6 pb-16">
+      <main className="relative z-10 mx-auto w-[min(94%,1100px)] space-y-6 pb-16">
         <Suspense fallback={<section className="panel">Loading mission data…</section>}>
-          <AboutSection />
-          <EducationSection />
-          <ResearchSection />
-          <ExperienceSection />
-          <SkillsSection />
-          <CurrentExpeditionSection />
-          <ContactSection />
+          <RevealSection><AboutSection /></RevealSection>
+          <RevealSection><EducationSection /></RevealSection>
+          <RevealSection><ResearchSection /></RevealSection>
+          <RevealSection><ExperienceSection /></RevealSection>
+          <RevealSection><SkillsSection /></RevealSection>
+          <RevealSection><CurrentExpeditionSection /></RevealSection>
+          <RevealSection><ContactSection /></RevealSection>
         </Suspense>
       </main>
     </div>
