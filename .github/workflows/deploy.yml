@@ -16,11 +16,19 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: find .github -maxdepth 3 -type f 2>/dev/null | sort
-      - run: git status --short
-      - run: git log --oneline -3
-      - run: node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('valid package.json')"
-      - run: npm install
+      - run: npm install -D @types/node
+      - run: npm ci
+      - run: npm run build
+      - run: git add package.json package-lock.json tsconfig*.json
+      - run: git commit -m "Fix TypeScript build configuration"
+      - run: git push
+      - run: npm ci
+      - run: npm run build
+      - run: git add package.json package-lock.json
+      - run: git commit -m "Regenerate package lock"
+      - run: git push
+      - run: npm ci
+
       - run: npm run build
       - run: npx gh-pages -d dist
         env:
