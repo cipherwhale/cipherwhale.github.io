@@ -16,12 +16,12 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: find .github -maxdepth 3 -type f 2>/dev/null | sort
-      - run: git status --short
-      - run: git log --oneline -3
-      - run: rm package-lock.json
-      - run: rm -rf node_modules
-      - run: npm install
+      - run: npm install -D @types/node
+      - run: npm ci
+      - run: npm run build
+      - run: git add package.json package-lock.json tsconfig*.json
+      - run: git commit -m "Fix TypeScript build configuration"
+      - run: git push
       - run: npm ci
       - run: npm run build
       - run: git add package.json package-lock.json
