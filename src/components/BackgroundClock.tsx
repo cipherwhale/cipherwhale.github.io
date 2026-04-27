@@ -12,10 +12,13 @@ export default function BackgroundClock({ progress }: BackgroundClockProps) {
   const tilt = qBezier(progress, -8, 3, 12);
 
   const tickCount = 72;
-  const stepped = Math.round(progress * tickCount) / tickCount;
+  const rawTicks = progress * tickCount;
+  const nearestTick = Math.round(rawTicks);
+  const stepped = nearestTick / tickCount;
   const minuteAngle = stepped * 360;
   const hourAngle = stepped * 60;
-  const pulseOpacity = 0.28 + Math.abs(Math.sin(stepped * Math.PI * tickCount)) * 0.18;
+  const distanceFromTick = Math.min(0.5, Math.abs(rawTicks - nearestTick));
+  const pulseOpacity = 0.2 + (0.5 - distanceFromTick) * 0.38;
 
   return (
     <div className="relativity-clock-layer" aria-hidden="true">
