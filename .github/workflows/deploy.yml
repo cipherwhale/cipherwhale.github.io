@@ -16,10 +16,11 @@ jobs:
         with:
           node-version: 20
           cache: npm
-      - run: npm ci
       - run: find .github -maxdepth 3 -type f 2>/dev/null | sort
       - run: git status --short
       - run: git log --oneline -3
+      - run: npm ci
+
       - run: npm run build
       - run: npx gh-pages -d dist
         env:
