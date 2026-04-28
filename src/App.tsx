@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import SpaceBackground from "./components/SpaceBackground";
 import BackgroundClock from "./components/BackgroundClock";
 import { useSmoothScrollProgress } from "./hooks/useSmoothScrollProgress";
-import headshotBase64 from "./assets/headshot.webp.txt?raw";
+import headshotSrc from "./assets/headshot_cropped.png";
 
 const AboutSection = lazy(() => import("./sections/AboutSection"));
 const EducationSection = lazy(() => import("./sections/EducationSection"));
@@ -14,8 +14,6 @@ const ExperienceSection = lazy(() => import("./sections/ExperienceSection"));
 const SkillsSection = lazy(() => import("./sections/SkillsSection"));
 const CurrentExpeditionSection = lazy(() => import("./sections/CurrentExpeditionSection"));
 const ContactSection = lazy(() => import("./sections/ContactSection"));
-
-const headshotSrc = `data:image/webp;base64,${headshotBase64.trim()}`;
 
 function RevealSection({ children }: { children: ReactNode }) {
   return (
@@ -73,7 +71,7 @@ export default function App() {
             <img
               src={headshotSrc}
               alt="William Hale headshot"
-              className="relative h-36 w-36 rounded-full border border-cyan-300/40 object-cover shadow-[0_0_30px_rgba(149,193,253,0.20)] md:h-44 md:w-44"
+              className="relative h-36 w-36 rounded-full border border-cyan-300/40 object-cover object-center shadow-[0_0_30px_rgba(149,193,253,0.20)] md:h-44 md:w-44"
             />
           </motion.div>
 
