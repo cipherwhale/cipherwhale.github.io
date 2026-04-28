@@ -194,6 +194,8 @@ export default function BackgroundClock({ progress }: BackgroundClockProps) {
         className="primary-clock"
         motionProgress={progress}
         tickProgress={progress}
+        scale={0.5}
+        opacity={0.26}
       />
 
       <SchematicClock
@@ -203,8 +205,8 @@ export default function BackgroundClock({ progress }: BackgroundClockProps) {
         offsetX={-10}
         offsetY={4}
         label="τ"
-        scale={0.72}
-        opacity={0.28}
+        scale={0.36}
+        opacity={0.22}
       />
     </div>
   );
