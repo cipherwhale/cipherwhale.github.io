@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import SpaceBackground from "./components/SpaceBackground";
 import BackgroundClock from "./components/BackgroundClock";
 import { useSmoothScrollProgress } from "./hooks/useSmoothScrollProgress";
+import headshotBase64 from "./assets/headshot.webp.txt?raw";
 
 const AboutSection = lazy(() => import("./sections/AboutSection"));
 const EducationSection = lazy(() => import("./sections/EducationSection"));
@@ -13,6 +14,8 @@ const ExperienceSection = lazy(() => import("./sections/ExperienceSection"));
 const SkillsSection = lazy(() => import("./sections/SkillsSection"));
 const CurrentExpeditionSection = lazy(() => import("./sections/CurrentExpeditionSection"));
 const ContactSection = lazy(() => import("./sections/ContactSection"));
+
+const headshotSrc = `data:image/webp;base64,${headshotBase64.trim()}`;
 
 function RevealSection({ children }: { children: ReactNode }) {
   return (
@@ -59,40 +62,56 @@ export default function App() {
 
       <header className="relative z-10 flex min-h-screen items-center justify-center px-4 text-center">
         <div className="absolute top-6 right-6 text-xs text-space-muted">Current Mission: Albuquerque, NM · {time}</div>
-        <div className="hero-copy">
-          <motion.p
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-            className="mb-4 text-xs uppercase tracking-[0.42em] text-space-muted"
+        <div className="hero-copy flex max-w-5xl flex-col items-center gap-8 md:flex-row md:text-left">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.94, y: 16 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            transition={{ duration: 0.85, ease: [0.22, 1, 0.36, 1] }}
+            className="relative shrink-0"
           >
-            Engineer · Researcher · Explorer
-          </motion.p>
-          <motion.h1
-            initial={{ opacity: 0, y: 18 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.9, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-            className="title-glow text-5xl md:text-8xl font-display tracking-[0.3em]"
-          >
-            WILLIAM HALE
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mt-5 max-w-2xl text-space-muted"
-          >
-            Electrical Engineer • Materials Scientist • Explorer of Spacetime
-          </motion.p>
-          <motion.a
-            initial={{ opacity: 0, y: 14 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.75, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
-            className="btn mt-8 inline-block"
-            href="#mission-brief"
-          >
-            Enter the Wormhole
-          </motion.a>
+            <div className="absolute -inset-3 rounded-full bg-[radial-gradient(circle,rgba(149,193,253,0.22),transparent_65%)] blur-xl" />
+            <img
+              src={headshotSrc}
+              alt="William Hale headshot"
+              className="relative h-36 w-36 rounded-full border border-cyan-300/40 object-cover shadow-[0_0_30px_rgba(149,193,253,0.20)] md:h-44 md:w-44"
+            />
+          </motion.div>
+
+          <div>
+            <motion.p
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+              className="mb-4 text-xs uppercase tracking-[0.42em] text-space-muted"
+            >
+              Engineer · Researcher · Explorer
+            </motion.p>
+            <motion.h1
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.9, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+              className="title-glow text-5xl md:text-8xl font-display tracking-[0.3em]"
+            >
+              WILLIAM HALE
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
+              className="mx-auto mt-5 max-w-2xl text-space-muted md:mx-0"
+            >
+              Electrical Engineer • Materials Scientist • Explorer of Spacetime
+            </motion.p>
+            <motion.a
+              initial={{ opacity: 0, y: 14 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.75, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
+              className="btn mt-8 inline-block"
+              href="#mission-brief"
+            >
+              Enter the Wormhole
+            </motion.a>
+          </div>
         </div>
       </header>
 
