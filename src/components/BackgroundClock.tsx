@@ -27,7 +27,6 @@ type RulerProps = {
   motionScale: number;
   speedScale: number;
   accent: "cyan" | "magenta";
-  xLabel: string;
 };
 
 function clamp(value: number, min: number, max: number) {
@@ -54,8 +53,6 @@ function normalizeScroll(input: number | ScrollKinematics): ScrollKinematics {
 }
 
 function getLorentzState(scrollVelocity: number, speedScale: number) {
-  // Deliberately artificial display speed of light. It is set low so ordinary
-  // scrolling creates visible length contraction in the schematic rulers.
   const visualC = 0.42;
   const beta = clamp((scrollVelocity * speedScale) / visualC, 0, 0.88);
   const lengthScale = Math.sqrt(1 - beta * beta);
@@ -71,7 +68,6 @@ function RelativisticRuler({
   motionScale,
   speedScale,
   accent,
-  xLabel,
 }: RulerProps) {
   const y = 8 + progress * 46 * motionScale;
   const { beta, lengthScale } = getLorentzState(velocity, speedScale);
@@ -80,12 +76,15 @@ function RelativisticRuler({
   const fullLength = 180;
   const contractedLength = fullLength * lengthScale;
   const bottom = top + contractedLength;
-  const origin = bottom;
+  const originX = 62;
+  const originY = bottom;
 
   const isMagenta = accent === "magenta";
   const accentStroke = isMagenta ? "rgba(205, 27, 87, 0.45)" : "rgba(149, 193, 253, 0.45)";
   const faintStroke = isMagenta ? "rgba(205, 27, 87, 0.18)" : "rgba(149, 193, 253, 0.20)";
   const labelFill = isMagenta ? "rgba(205, 27, 87, 0.78)" : "rgba(255, 255, 255, 0.68)";
+  const axisSuffix = label === "S'" ? "'" : "";
+  const rotationDeg = label === "S'" ? 5 : -6;
 
   return (
     <div
@@ -93,44 +92,51 @@ function RelativisticRuler({
         position: "absolute",
         top: 0,
         left,
-        width: 150,
-        height: 270,
+        width: 170,
+        height: 290,
         opacity: isMagenta ? 0.34 : 0.3,
         pointerEvents: "none",
         mixBlendMode: "screen",
         filter: isMagenta
           ? "drop-shadow(0 0 14px rgba(205, 27, 87, 0.16)) drop-shadow(0 0 8px rgba(149, 193, 253, 0.08))"
           : "drop-shadow(0 0 14px rgba(149, 193, 253, 0.14)) drop-shadow(0 0 10px rgba(205, 27, 87, 0.08))",
-        transform: `translate3d(0, ${y}vh, 0)`,
+        transform: `translate3d(0, ${y}vh, 0) rotate(${rotationDeg}deg)`,
+        transformOrigin: "50% 70%",
         willChange: "transform",
       }}
     >
-      <svg viewBox="0 0 150 270" role="presentation" style={{ width: "100%", height: "100%", overflow: "visible" }}>
-        <text x="20" y="18" style={{ fill: labelFill, fontSize: 20, fontWeight: 700, letterSpacing: "0.06em" }}>
+      <svg viewBox="0 0 170 290" role="presentation" style={{ width: "100%", height: "100%", overflow: "visible" }}>
+        <text x="24" y="18" style={{ fill: labelFill, fontSize: 20, fontWeight: 700, letterSpacing: "0.06em" }}>
           {label}
         </text>
-        <text x="20" y="38" style={{ fill: "rgba(220, 237, 255, 0.42)", fontSize: 9, letterSpacing: "0.06em" }}>
+        <text x="24" y="38" style={{ fill: "rgba(220, 237, 255, 0.42)", fontSize: 9, letterSpacing: "0.06em" }}>
           beta={beta.toFixed(2)}
         </text>
-        <text x="20" y="54" style={{ fill: "rgba(220, 237, 255, 0.42)", fontSize: 9, letterSpacing: "0.06em" }}>
+        <text x="24" y="54" style={{ fill: "rgba(220, 237, 255, 0.42)", fontSize: 9, letterSpacing: "0.06em" }}>
           L/L0={lengthScale.toFixed(2)}
         </text>
 
-        <circle cx="62" cy={origin} r="4" style={{ fill: "rgba(255, 255, 255, 0.78)", stroke: accentStroke, strokeWidth: 1 }} />
+        <circle cx={originX} cy={originY} r="4" style={{ fill: "rgba(255, 255, 255, 0.78)", stroke: accentStroke, strokeWidth: 1 }} />
 
-        <line x1="62" y1={origin} x2="118" y2={origin} style={{ stroke: "rgba(220, 237, 255, 0.34)", strokeWidth: 1, strokeLinecap: "round" }} />
-        <path d={`M 118 ${origin} l -7 -4 v 8 z`} style={{ fill: "rgba(220, 237, 255, 0.38)" }} />
-        <text x="123" y={origin + 4} style={{ fill: "rgba(220, 237, 255, 0.46)", fontSize: 9 }}>
-          {xLabel}
+        <line x1={originX} y1={originY} x2={originX + 52} y2={originY} style={{ stroke: "rgba(220, 237, 255, 0.34)", strokeWidth: 1, strokeLinecap: "round" }} />
+        <path d={`M ${originX + 52} ${originY} l -7 -4 v 8 z`} style={{ fill: "rgba(220, 237, 255, 0.38)" }} />
+        <text x={originX + 58} y={originY + 4} style={{ fill: "rgba(220, 237, 255, 0.46)", fontSize: 9 }}>
+          x{axisSuffix}
         </text>
 
-        <line x1="62" y1={origin} x2="62" y2={origin - 48} style={{ stroke: "rgba(220, 237, 255, 0.34)", strokeWidth: 1, strokeLinecap: "round" }} />
-        <path d={`M 62 ${origin - 48} l -4 7 h 8 z`} style={{ fill: "rgba(220, 237, 255, 0.38)" }} />
-        <text x="68" y={origin - 42} style={{ fill: "rgba(220, 237, 255, 0.46)", fontSize: 9 }}>
-          ct
+        <line x1={originX} y1={originY} x2={originX} y2={originY - 52} style={{ stroke: "rgba(220, 237, 255, 0.34)", strokeWidth: 1, strokeLinecap: "round" }} />
+        <path d={`M ${originX} ${originY - 52} l -4 7 h 8 z`} style={{ fill: "rgba(220, 237, 255, 0.38)" }} />
+        <text x={originX + 7} y={originY - 45} style={{ fill: "rgba(220, 237, 255, 0.46)", fontSize: 9 }}>
+          y{axisSuffix}
         </text>
 
-        <line x1="62" y1={top} x2="62" y2={bottom} style={{ stroke: accentStroke, strokeWidth: 1.2, strokeLinecap: "round" }} />
+        <line x1={originX} y1={originY} x2={originX - 28} y2={originY + 28} style={{ stroke: "rgba(220, 237, 255, 0.28)", strokeWidth: 1, strokeLinecap: "round" }} />
+        <path d={`M ${originX - 28} ${originY + 28} l 7 -1 l -5 -5 z`} style={{ fill: "rgba(220, 237, 255, 0.34)" }} />
+        <text x={originX - 42} y={originY + 38} style={{ fill: "rgba(220, 237, 255, 0.42)", fontSize: 9 }}>
+          z{axisSuffix}
+        </text>
+
+        <line x1={originX} y1={top} x2={originX} y2={bottom} style={{ stroke: accentStroke, strokeWidth: 1.2, strokeLinecap: "round" }} />
 
         {Array.from({ length: 11 }).map((_, i) => {
           const tickY = top + (contractedLength * i) / 10;
@@ -140,7 +146,7 @@ function RelativisticRuler({
               <line
                 x1={major ? 40 : 48}
                 y1={tickY}
-                x2="62"
+                x2={originX}
                 y2={tickY}
                 style={{
                   stroke: major ? accentStroke : faintStroke,
@@ -158,7 +164,7 @@ function RelativisticRuler({
         })}
 
         <path
-          d={`M 84 ${top + 12} C 112 ${top + 58}, 112 ${bottom - 54}, 84 ${bottom - 10}`}
+          d={`M 88 ${top + 12} C 118 ${top + 58}, 120 ${bottom - 54}, 90 ${bottom - 8}`}
           style={{ fill: "none", stroke: faintStroke, strokeWidth: 0.9, strokeDasharray: "3 5" }}
         />
       </svg>
@@ -173,21 +179,19 @@ function RelativisticRulers({ progress, velocity }: ScrollKinematics) {
         label="S"
         progress={progress}
         velocity={velocity}
-        left="clamp(0.25rem, 2vw, 2rem)"
+        left="clamp(0.5rem, 2vw, 2rem)"
         motionScale={0.75}
         speedScale={0.72}
         accent="cyan"
-        xLabel="x"
       />
       <RelativisticRuler
         label="S'"
         progress={progress}
         velocity={velocity}
-        left="clamp(4.5rem, 8vw, 8rem)"
+        left="clamp(4.8rem, 8vw, 8.5rem)"
         motionScale={1.35}
         speedScale={1.65}
         accent="magenta"
-        xLabel="x'"
       />
     </div>
   );
