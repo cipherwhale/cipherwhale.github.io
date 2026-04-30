@@ -15,6 +15,8 @@ const SkillsSection = lazy(() => import("./sections/SkillsSection"));
 const CurrentExpeditionSection = lazy(() => import("./sections/CurrentExpeditionSection"));
 const ContactSection = lazy(() => import("./sections/ContactSection"));
 
+const thesisUrl = "https://www.proquest.com/openview/ebe8f9eaa8844b307763ca1fa3c1a316/1?pq-origsite=gscholar&cbl=18750&diss=y";
+
 function RevealSection({ children }: { children: ReactNode }) {
   return (
     <motion.div
@@ -28,8 +30,56 @@ function RevealSection({ children }: { children: ReactNode }) {
   );
 }
 
+function ResumeModal({ onClose }: { onClose: () => void }) {
+  return (
+    <motion.div
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 px-4 backdrop-blur-sm"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      onClick={onClose}
+    >
+      <motion.div
+        className="panel max-w-2xl text-left"
+        initial={{ opacity: 0, y: 18, scale: 0.98 }}
+        animate={{ opacity: 1, y: 0, scale: 1 }}
+        transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="section-kicker">Resume Snapshot</div>
+        <h2 className="section-title">William Hale</h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="content-card">
+            <h3 className="content-card-title">Engineering</h3>
+            <p className="muted">Electrical engineering, microwave metrology, measurement automation, and technical software.</p>
+          </div>
+          <div className="content-card">
+            <h3 className="content-card-title">Research</h3>
+            <p className="muted">Computational materials, DFT/VASP experience, electrocatalysis, and physics simulation.</p>
+          </div>
+          <div className="content-card">
+            <h3 className="content-card-title">Tools</h3>
+            <p className="muted">Python, Julia, Linux, numerical modeling, data analysis, and scientific computing workflows.</p>
+          </div>
+          <div className="content-card">
+            <h3 className="content-card-title">Current Direction</h3>
+            <p className="muted">PDEs, gravity, scalar-tensor theory, pilot-wave models, and simulation-heavy physics research.</p>
+          </div>
+        </div>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <a className="btn inline-block" href="mailto:williamhaleemail@gmail.com?subject=CV%20Request%20-%20William%20Hale">
+            Request CV
+          </a>
+          <button className="btn" type="button" onClick={onClose}>Close</button>
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 export default function App() {
   const [time, setTime] = useState("");
+  const [showResume, setShowResume] = useState(false);
   const scrollProgress = useSmoothScrollProgress();
 
   useEffect(() => {
@@ -57,10 +107,11 @@ export default function App() {
     <div className="relative min-h-screen overflow-hidden bg-space-deep text-space-text font-body">
       <SpaceBackground />
       <BackgroundClock progress={scrollProgress} />
+      {showResume ? <ResumeModal onClose={() => setShowResume(false)} /> : null}
 
-      <header className="relative z-10 flex min-h-screen items-center justify-center px-6 py-20 text-center">
+      <header className="relative z-10 flex min-h-screen items-center justify-center px-6 py-24 text-center">
         <div className="absolute top-6 right-6 text-xs text-space-muted">Current Mission: Albuquerque, NM · {time}</div>
-        <div className="hero-copy flex max-w-6xl flex-col items-center gap-10 md:flex-row md:gap-14 md:text-left">
+        <div className="hero-copy flex max-w-6xl flex-col items-center gap-12 md:flex-row md:gap-16 md:text-left">
           <motion.div
             initial={{ opacity: 0, scale: 0.94, y: 16 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -80,7 +131,7 @@ export default function App() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="mb-6 text-xs uppercase tracking-[0.42em] text-space-muted"
+              className="mb-7 text-xs uppercase tracking-[0.42em] text-space-muted"
             >
               Engineer · Researcher · Explorer
             </motion.p>
@@ -88,7 +139,7 @@ export default function App() {
               initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.9, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
-              className="title-glow text-5xl font-semibold leading-[0.98] tracking-[0.22em] md:text-8xl"
+              className="title-glow text-5xl font-bold leading-[1.02] tracking-[0.18em] md:text-8xl"
             >
               WILLIAM HALE
             </motion.h1>
@@ -96,7 +147,7 @@ export default function App() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.22, ease: [0.22, 1, 0.36, 1] }}
-              className="mx-auto mt-7 max-w-2xl text-base leading-8 text-space-muted md:mx-0 md:text-lg"
+              className="mx-auto mt-8 max-w-2xl text-base leading-8 text-space-muted md:mx-0 md:text-lg"
             >
               Electrical Engineer • Materials Scientist • Explorer of Spacetime
             </motion.p>
@@ -104,21 +155,24 @@ export default function App() {
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.75, delay: 0.34, ease: [0.22, 1, 0.36, 1] }}
-              className="mt-10 flex flex-wrap justify-center gap-4 md:justify-start"
+              className="mt-12 flex flex-wrap justify-center gap-4 md:justify-start"
             >
               <a className="btn inline-block" href="#mission-brief">
                 Enter the Wormhole
               </a>
-              <a className="btn inline-block" href="#research-missions">
-                View Research
+              <button className="btn" type="button" onClick={() => setShowResume(true)}>
+                Resume Snapshot
+              </button>
+              <a className="btn inline-block" href={thesisUrl} target="_blank" rel="noreferrer">
+                Thesis ↗
               </a>
             </motion.div>
           </div>
         </div>
       </header>
 
-      <nav className="sticky top-3 z-40 mx-auto mb-10 w-[min(94%,1120px)] rounded-full border border-cyan-400/30 bg-[#081025cc] px-5 py-3 text-xs backdrop-blur">
-        <ul className="flex flex-wrap justify-center gap-x-5 gap-y-2">
+      <nav className="sticky top-3 z-40 mx-auto mb-12 w-[min(94%,1120px)] rounded-full border border-cyan-400/30 bg-[#081025cc] px-5 py-3 text-xs backdrop-blur">
+        <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3">
           <li><a href="#mission-brief">MISSION BRIEF</a></li>
           <li><a href="#education">EDUCATION</a></li>
           <li><a href="#research-missions">RESEARCH</a></li>
@@ -129,7 +183,7 @@ export default function App() {
         </ul>
       </nav>
 
-      <main className="relative z-10 mx-auto w-[min(94%,1120px)] space-y-10 pb-24">
+      <main className="relative z-10 mx-auto w-[min(94%,1120px)] space-y-12 pb-28">
         <Suspense fallback={<section className="panel">Loading mission data…</section>}>
           <RevealSection><AboutSection /></RevealSection>
           <RevealSection><EducationSection /></RevealSection>
