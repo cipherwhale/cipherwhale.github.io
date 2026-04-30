@@ -12,13 +12,51 @@ const intermediates: Intermediate[] = [
   { label: "*OOH", x: 810, kind: "OOH" },
 ];
 
+const atomStyle = {
+  fill: "rgba(245, 247, 250, 0.72)",
+  stroke: "rgba(36, 41, 49, 0.72)",
+  strokeWidth: 2.1,
+};
+
+const atomHighlightStyle = {
+  fill: "rgba(255, 255, 255, 0.62)",
+  stroke: "none",
+};
+
+const atomLabelStyle = {
+  fill: "rgba(19, 24, 32, 0.82)",
+  fontSize: 18,
+  fontWeight: 700,
+  textAnchor: "middle" as const,
+};
+
+const bondStyle = {
+  stroke: "rgba(34, 39, 47, 0.62)",
+  strokeWidth: 4,
+  strokeLinecap: "round" as const,
+};
+
+const faintBondStyle = {
+  ...bondStyle,
+  stroke: "rgba(75, 84, 96, 0.26)",
+  strokeWidth: 3,
+};
+
+const titleStyle = {
+  fill: "rgba(230, 237, 247, 0.86)",
+  fontSize: 42,
+  fontWeight: 500,
+  textAnchor: "middle" as const,
+  letterSpacing: "0.04em",
+};
+
 function Atom({ x, y, label, r = 20, faint = false }: { x: number; y: number; label?: string; r?: number; faint?: boolean }) {
   return (
     <g opacity={faint ? 0.34 : 0.92}>
-      <circle cx={x} cy={y} r={r} className="mol-atom" />
-      <circle cx={x - r * 0.24} cy={y - r * 0.2} r={r * 0.42} className="mol-atom-highlight" />
+      <circle cx={x} cy={y} r={r} style={atomStyle} />
+      <circle cx={x - r * 0.24} cy={y - r * 0.2} r={r * 0.42} style={atomHighlightStyle} />
       {label ? (
-        <text x={x} y={y + 6} className="mol-atom-label">
+        <text x={x} y={y + 6} style={atomLabelStyle}>
           {label}
         </text>
       ) : null}
@@ -27,7 +65,7 @@ function Atom({ x, y, label, r = 20, faint = false }: { x: number; y: number; la
 }
 
 function Bond({ x1, y1, x2, y2, faint = false }: { x1: number; y1: number; x2: number; y2: number; faint?: boolean }) {
-  return <line x1={x1} y1={y1} x2={x2} y2={y2} className={faint ? "mol-bond mol-bond-faint" : "mol-bond"} />;
+  return <line x1={x1} y1={y1} x2={x2} y2={y2} style={faint ? faintBondStyle : bondStyle} />;
 }
 
 function Lattice({ x }: { x: number }) {
@@ -110,7 +148,12 @@ export default function MolecularDiagramSection() {
         viewport={{ once: true, amount: 0.25 }}
         transition={{ duration: 0.95, ease: [0.22, 1, 0.36, 1] }}
       >
-        <svg viewBox="0 0 1000 520" className="molecular-sketch" role="img" aria-label="Pencil sketch of surface-bound *O, *OH, and *OOH intermediates on a catalyst lattice">
+        <svg
+          viewBox="0 0 1000 520"
+          className="w-full"
+          role="img"
+          aria-label="Pencil sketch of surface-bound *O, *OH, and *OOH intermediates on a catalyst lattice"
+        >
           <defs>
             <filter id="pencil-soften" x="-10%" y="-10%" width="120%" height="120%">
               <feTurbulence baseFrequency="0.9" numOctaves="2" seed="7" result="noise" />
@@ -127,7 +170,7 @@ export default function MolecularDiagramSection() {
           <g filter="url(#pencil-soften)">
             {intermediates.map((item) => (
               <g key={item.label}>
-                <text x={item.x} y="58" className="mol-title">
+                <text x={item.x} y="58" style={titleStyle}>
                   {item.label}
                 </text>
                 <Lattice x={item.x} />
