@@ -9,10 +9,10 @@ import headshotSrc from "./assets/headshot_cropped.png";
 
 const AboutSection = lazy(() => import("./sections/AboutSection"));
 const EducationSection = lazy(() => import("./sections/EducationSection"));
+const CurrentExpeditionSection = lazy(() => import("./sections/CurrentExpeditionSection"));
+const MolecularDiagramSection = lazy(() => import("./sections/MolecularDiagramSection"));
 const ResearchSection = lazy(() => import("./sections/ResearchSection"));
 const ExperienceSection = lazy(() => import("./sections/ExperienceSection"));
-const SkillsSection = lazy(() => import("./sections/SkillsSection"));
-const CurrentExpeditionSection = lazy(() => import("./sections/CurrentExpeditionSection"));
 const ContactSection = lazy(() => import("./sections/ContactSection"));
 
 const thesisUrl = "https://www.proquest.com/openview/ebe8f9eaa8844b307763ca1fa3c1a316/1?pq-origsite=gscholar&cbl=18750&diss=y";
@@ -175,10 +175,10 @@ export default function App() {
         <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3">
           <li><a href="#mission-brief">MISSION BRIEF</a></li>
           <li><a href="#education">EDUCATION</a></li>
+          <li><a href="#current-physics-expedition">PHYSICS COURSEWORK</a></li>
+          <li><a href="#molecular-intermediates">INTERMEDIATES</a></li>
           <li><a href="#research-missions">RESEARCH</a></li>
           <li><a href="#experience">EXPERIENCE</a></li>
-          <li><a href="#skills-toolkit">SKILLS</a></li>
-          <li><a href="#current-physics-expedition">PHYSICS EXPEDITION</a></li>
           <li><a href="#contact">CONTACT</a></li>
         </ul>
       </nav>
@@ -187,10 +187,10 @@ export default function App() {
         <Suspense fallback={<section className="panel">Loading mission data…</section>}>
           <RevealSection><AboutSection /></RevealSection>
           <RevealSection><EducationSection /></RevealSection>
+          <RevealSection><CurrentExpeditionSection /></RevealSection>
+          <RevealSection><MolecularDiagramSection /></RevealSection>
           <RevealSection><ResearchSection /></RevealSection>
           <RevealSection><ExperienceSection /></RevealSection>
-          <RevealSection><SkillsSection /></RevealSection>
-          <RevealSection><CurrentExpeditionSection /></RevealSection>
           <RevealSection><ContactSection /></RevealSection>
         </Suspense>
       </main>
