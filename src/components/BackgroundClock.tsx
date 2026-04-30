@@ -84,7 +84,7 @@ function RelativisticRuler({
   const faintStroke = isMagenta ? "rgba(205, 27, 87, 0.18)" : "rgba(149, 193, 253, 0.20)";
   const labelFill = isMagenta ? "rgba(205, 27, 87, 0.78)" : "rgba(255, 255, 255, 0.68)";
   const axisSuffix = label === "S'" ? "'" : "";
-  const rotationDeg = label === "S'" ? 5 : -6;
+  const frameOffsetX = label === "S'" ? 6 : 0;
 
   return (
     <div
@@ -100,8 +100,7 @@ function RelativisticRuler({
         filter: isMagenta
           ? "drop-shadow(0 0 14px rgba(205, 27, 87, 0.16)) drop-shadow(0 0 8px rgba(149, 193, 253, 0.08))"
           : "drop-shadow(0 0 14px rgba(149, 193, 253, 0.14)) drop-shadow(0 0 10px rgba(205, 27, 87, 0.08))",
-        transform: `translate3d(0, ${y}vh, 0) rotate(${rotationDeg}deg)`,
-        transformOrigin: "50% 70%",
+        transform: `translate3d(${frameOffsetX}px, ${y}vh, 0)`,
         willChange: "transform",
       }}
     >
@@ -179,7 +178,7 @@ function RelativisticRulers({ progress, velocity }: ScrollKinematics) {
         label="S"
         progress={progress}
         velocity={velocity}
-        left="clamp(0.5rem, 2vw, 2rem)"
+        left="clamp(0.9rem, 2vw, 2.4rem)"
         motionScale={0.75}
         speedScale={0.72}
         accent="cyan"
@@ -188,7 +187,7 @@ function RelativisticRulers({ progress, velocity }: ScrollKinematics) {
         label="S'"
         progress={progress}
         velocity={velocity}
-        left="clamp(4.8rem, 8vw, 8.5rem)"
+        left="clamp(5.6rem, 8vw, 9.2rem)"
         motionScale={1.35}
         speedScale={1.65}
         accent="magenta"
