@@ -176,7 +176,6 @@ export default function App() {
           <li><a href="#mission-brief">MISSION BRIEF</a></li>
           <li><a href="#education">EDUCATION</a></li>
           <li><a href="#current-physics-expedition">PHYSICS COURSEWORK</a></li>
-          <li><a href="#molecular-intermediates">INTERMEDIATES</a></li>
           <li><a href="#research-missions">RESEARCH</a></li>
           <li><a href="#experience">EXPERIENCE</a></li>
           <li><a href="#contact">CONTACT</a></li>
