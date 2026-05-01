@@ -10,7 +10,6 @@ import headshotSrc from "./assets/headshot_cropped.png";
 const AboutSection = lazy(() => import("./sections/AboutSection"));
 const EducationSection = lazy(() => import("./sections/EducationSection"));
 const CurrentExpeditionSection = lazy(() => import("./sections/CurrentExpeditionSection"));
-const MolecularDiagramSection = lazy(() => import("./sections/MolecularDiagramSection"));
 const ResearchSection = lazy(() => import("./sections/ResearchSection"));
 const ExperienceSection = lazy(() => import("./sections/ExperienceSection"));
 const ContactSection = lazy(() => import("./sections/ContactSection"));
@@ -187,7 +186,6 @@ export default function App() {
           <RevealSection><AboutSection /></RevealSection>
           <RevealSection><EducationSection /></RevealSection>
           <RevealSection><CurrentExpeditionSection /></RevealSection>
-          <RevealSection><MolecularDiagramSection /></RevealSection>
           <RevealSection><ResearchSection /></RevealSection>
           <RevealSection><ExperienceSection /></RevealSection>
           <RevealSection><ContactSection /></RevealSection>
