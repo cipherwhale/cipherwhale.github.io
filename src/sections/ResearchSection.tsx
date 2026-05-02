@@ -10,7 +10,7 @@ export default function ResearchSection() {
           aria-hidden="true"
           className="absolute inset-0 h-full w-full object-cover"
           style={{
-            opacity: 0.5,
+            opacity: 0.75,
             mixBlendMode: "screen",
             filter:
               "grayscale(100%) contrast(1.02) brightness(0.95) drop-shadow(0 0 20px rgba(255,255,255,0.04))",
