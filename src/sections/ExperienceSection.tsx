@@ -13,7 +13,7 @@ const roles = [
 export default function ExperienceSection() {
   return (
     <section id="experience" className="panel">
-      <h2 className="section-title">Experience — Mission Timeline</h2>
+      <h2 className="section-title">Experience</h2>
       <div className="space-y-4">
         {roles.map((role) => (
           <article key={role.title}>
