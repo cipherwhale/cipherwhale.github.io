@@ -8,14 +8,6 @@ const roles = [
       "Drive process improvements and lead tool-set and process development initiatives.",
     ],
   },
-  {
-    title: "Process Engineer Intern — Intel Corporation (Dec 2021 to Aug 2022)",
-    bullets: [
-      "Improved e-test process and measurement accuracy for advanced nodes.",
-      "Analyzed high- and medium-volume measurements and correlation to mass metrology.",
-      "Managed experiments, process reliability assessments, and statistical methods for yield improvements.",
-    ],
-  },
 ];
 
 export default function ExperienceSection() {
