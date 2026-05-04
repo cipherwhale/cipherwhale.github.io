@@ -157,7 +157,7 @@ export default function App() {
               className="mt-12 flex flex-wrap justify-center gap-4 md:justify-start"
             >
               <a className="btn inline-block" href="#mission-brief">
-                Enter the Wormhole
+                About Me
               </a>
               <button className="btn" type="button" onClick={() => setShowResume(true)}>
                 Resume Snapshot
@@ -172,7 +172,7 @@ export default function App() {
 
       <nav className="sticky top-3 z-40 mx-auto mb-12 w-[min(94%,1120px)] rounded-full border border-cyan-400/30 bg-[#081025cc] px-5 py-3 text-xs backdrop-blur">
         <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3">
-          <li><a href="#mission-brief">MISSION BRIEF</a></li>
+          <li><a href="#mission-brief">ABOUT ME</a></li>
           <li><a href="#education">EDUCATION</a></li>
           <li><a href="#current-physics-expedition">PHYSICS COURSEWORK</a></li>
           <li><a href="#research-missions">RESEARCH</a></li>
