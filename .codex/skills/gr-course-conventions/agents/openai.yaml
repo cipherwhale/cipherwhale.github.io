@@ -1,0 +1,4 @@
+interface:
+  display_name: "GR Course Conventions"
+  short_description: "Apply consistent relativity sign conventions"
+  default_prompt: "Use $gr-course-conventions to solve this relativity problem with explicit metric, units, and sign checks."
