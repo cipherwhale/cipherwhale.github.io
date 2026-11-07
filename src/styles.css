@@ -363,3 +363,173 @@ nav a:hover {
     padding: 1.25rem;
   }
 }
+
+
+/* Spacetime journey: restrained fixed scientific artwork behind content. */
+.spacetime-overlay {
+  position: fixed;
+  top: 12vh;
+  left: clamp(0.3rem, 3vw, 4rem);
+  width: clamp(210px, 26vw, 360px);
+  aspect-ratio: 9 / 10;
+  z-index: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: drop-shadow(0 0 16px rgba(149, 193, 253, 0.10));
+  transition: opacity 170ms linear;
+}
+
+.spacetime-overlay svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.lensing-field {
+  position: fixed;
+  inset: 4vh 6vw 7vh 6vw;
+  width: 88vw;
+  height: 89vh;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+  mask-image: radial-gradient(ellipse at 50% 48%, black 20%, rgba(0,0,0,.75) 46%, transparent 76%);
+  transition: opacity 160ms linear;
+}
+
+/* Both quotations are genuinely separate from portfolio content. */
+.spacetime-quote {
+  position: relative;
+  isolation: isolate;
+  padding: clamp(3.6rem, 7vw, 7rem) clamp(1rem, 4vw, 4rem);
+  margin: 0 auto;
+  max-width: 950px;
+  text-align: center;
+}
+
+.spacetime-quote::before,
+.spacetime-quote::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 50%;
+  width: min(55vw, 350px);
+  height: 1px;
+  transform: translateX(-50%);
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(149,193,253,.19), transparent);
+}
+
+.spacetime-quote::before { top: 0; }
+.spacetime-quote::after { bottom: 0; }
+
+.spacetime-quote__text {
+  margin: 0 auto;
+  max-width: 790px;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.5rem, 3.1vw, 2.55rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.005em;
+  color: rgba(225, 235, 255, 0.91);
+  text-shadow: 0 0 28px rgba(149,193,253,.10);
+}
+
+.spacetime-quote--beethoven .spacetime-quote__text {
+  color: rgba(233, 233, 246, 0.88);
+}
+
+.spacetime-quote__credit {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .55rem;
+  margin-top: 1.7rem;
+  font-size: .77rem;
+  letter-spacing: .045em;
+  color: rgba(190, 210, 244, 0.75);
+}
+
+.spacetime-quote__author {
+  color: rgba(149, 193, 253, .86);
+  font-weight: 600;
+}
+
+.spacetime-quote__source {
+  max-width: 100%;
+  color: rgba(185, 195, 215, 0.65);
+  text-decoration: underline;
+  text-decoration-color: rgba(149, 193, 253, 0.28);
+  text-underline-offset: 4px;
+  line-height: 1.5;
+}
+
+.spacetime-quote__source:hover,
+.spacetime-quote__source:focus-visible { color: #e2efff; }
+
+.relativity-control {
+  position: fixed;
+  right: clamp(.65rem, 2.3vw, 2.2rem);
+  bottom: clamp(.85rem, 2vw, 1.6rem);
+  z-index: 45;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: .75rem;
+  pointer-events: none;
+}
+
+.relativity-control > * { pointer-events: auto; }
+
+.relativity-control__toggle {
+  display: flex;
+  gap: .65rem;
+  align-items: center;
+  border: 1px solid rgba(149,193,253,.36);
+  padding: .62rem .92rem;
+  border-radius: 999px;
+  background: rgba(8,16,37,.88);
+  backdrop-filter: blur(12px);
+  color: rgba(225,235,255,.9);
+  box-shadow: 0 0 20px rgba(29,121,194,.11);
+  font-size: .8rem;
+  font-weight: 600;
+}
+
+.relativity-control__toggle:hover,
+.relativity-control__toggle:focus-visible { border-color: rgba(149,193,253,.76); }
+
+.relativity-control__speed { opacity: .68; font-size: .72rem; font-variant-numeric: tabular-nums; }
+
+.relativity-control__panel {
+  width: min(310px, calc(100vw - 1.5rem));
+  padding: 1.15rem;
+  border-radius: 1rem;
+  border: 1px solid rgba(149,193,253,.32);
+  background: rgba(8,16,37,.97);
+  box-shadow: 0 18px 60px rgba(0,0,0,.5);
+  backdrop-filter: blur(14px);
+}
+
+.relativity-control input:focus-visible,
+.relativity-control button:focus-visible,
+.spacetime-quote a:focus-visible { outline: 2px solid #95c1fd; outline-offset: 3px; }
+
+@media (max-width: 768px) {
+  .spacetime-overlay {
+    left: -3rem;
+    width: 235px;
+    top: 20vh;
+  }
+  .lensing-field { opacity: .18 !important; }
+  .spacetime-quote { padding: 3.3rem 1rem; }
+  .spacetime-quote__text { font-size: clamp(1.35rem, 5.3vw, 1.85rem); }
+  .relativity-control__toggle { padding: .55rem .7rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spacetime-overlay, .lensing-field { display: none; }
+  .spacetime-quote { transition: none !important; }
+  .relativity-control__toggle, .relativity-control__panel { backdrop-filter: none; }
+}
