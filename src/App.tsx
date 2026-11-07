@@ -1,7 +1,12 @@
 import { Suspense, lazy, useEffect, useState } from "react";
 import type { ReactNode } from "react";
 import Lenis from "lenis";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
+import { getRelativityState } from "./physics/relativity";
+import QuoteSection from "./components/QuoteSection";
+import SpacetimeOverlay from "./components/SpacetimeOverlay";
+import LensingField from "./components/LensingField";
+import RelativityControl from "./components/RelativityControl";
 import SpaceBackground from "./components/SpaceBackground";
 import BackgroundClock from "./components/BackgroundClock";
 import { useSmoothScrollProgress } from "./hooks/useSmoothScrollProgress";
@@ -80,9 +85,12 @@ export default function App() {
   const [time, setTime] = useState("");
   const [showResume, setShowResume] = useState(false);
   const scrollProgress = useSmoothScrollProgress();
+  const prefersReducedMotion = Boolean(useReducedMotion());
+  const [betaOverride, setBetaOverride] = useState<number | null>(null);
+  const { beta } = getRelativityState(scrollProgress.progress, betaOverride);
 
   useEffect(() => {
-    const lenis = new Lenis({ duration: 1.15, smoothWheel: true });
+    const lenis = new Lenis({ duration: 1.15, smoothWheel: true, autoRaf: false });
     let frame = 0;
     const raf = (t: number) => {
       lenis.raf(t);
@@ -105,7 +113,10 @@ export default function App() {
   return (
     <div className="relative min-h-screen overflow-hidden bg-space-deep text-space-text font-body">
       <SpaceBackground />
-      <BackgroundClock progress={scrollProgress} />
+      <BackgroundClock progress={scrollProgress} betaOverride={betaOverride} reducedMotion={prefersReducedMotion} />
+      <SpacetimeOverlay progress={scrollProgress.progress} beta={beta} reducedMotion={prefersReducedMotion} />
+      <LensingField progress={scrollProgress.progress} reducedMotion={prefersReducedMotion} />
+      <RelativityControl beta={beta} override={betaOverride} onOverride={setBetaOverride} />
       {showResume ? <ResumeModal onClose={() => setShowResume(false)} /> : null}
 
       <header className="relative z-10 flex min-h-screen items-center justify-center px-6 py-24 text-center">
@@ -170,6 +181,16 @@ export default function App() {
         </div>
       </header>
 
+      <div className="relative z-10 mx-auto w-[min(94%,1120px)] px-3">
+        <QuoteSection
+          variant="einstein"
+          quote="Imagination is more important than knowledge."
+          author="Albert Einstein"
+          provenance="What Life Means to Einstein · The Saturday Evening Post, 1929"
+          sourceUrl="https://www.saturdayeveningpost.com/wp-content/uploads/satevepost/what_life_means_to_einstein.pdf"
+        />
+      </div>
+
       <nav className="sticky top-3 z-40 mx-auto mb-12 w-[min(94%,1120px)] rounded-full border border-cyan-400/30 bg-[#081025cc] px-5 py-3 text-xs backdrop-blur">
         <ul className="flex flex-wrap justify-center gap-x-6 gap-y-3">
           <li><a href="#mission-brief">ABOUT ME</a></li>
@@ -188,6 +209,13 @@ export default function App() {
           <RevealSection><CurrentExpeditionSection /></RevealSection>
           <RevealSection><ResearchSection /></RevealSection>
           <RevealSection><ExperienceSection /></RevealSection>
+          <QuoteSection
+            variant="beethoven"
+            quote="Truth exists for the wise, Beauty for a feeling heart. They both belong to each other."
+            author="Friedrich Schiller · quoted by Ludwig van Beethoven"
+            provenance="Beethoven's 1797 album entry · Beethoven-Haus Bonn"
+            sourceUrl="https://www.beethoven.de/en/glossar/view/4625002850680832/Wisdom%20of%20life"
+          />
           <RevealSection><ContactSection /></RevealSection>
         </Suspense>
       </main>
