@@ -533,3 +533,21 @@ nav a:hover {
   .spacetime-quote { transition: none !important; }
   .relativity-control__toggle, .relativity-control__panel { backdrop-filter: none; }
 }
+
+/* Extremely faint forward-blue / backward-red spectral cue. */
+.doppler-starlight {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 77% 23%, rgba(110,171,255,.35) 0 1px, transparent 3px),
+    radial-gradient(circle at 85% 72%, rgba(130,190,255,.3) 0 1px, transparent 3px),
+    radial-gradient(circle at 69% 53%, rgba(110,171,255,.22) 0 1px, transparent 4px),
+    radial-gradient(circle at 21% 38%, rgba(255,120,134,.26) 0 1px, transparent 3px),
+    radial-gradient(circle at 13% 77%, rgba(255,120,134,.22) 0 1px, transparent 3px);
+  mix-blend-mode: screen;
+  transition: opacity 180ms linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .doppler-starlight { display: none; }
+}
