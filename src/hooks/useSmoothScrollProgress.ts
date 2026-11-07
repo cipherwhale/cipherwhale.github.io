@@ -27,6 +27,16 @@ export function useSmoothScrollProgress(): ScrollKinematics {
     let eased = getScrollProgress();
     let smoothedVelocity = 0;
     let lastTime = performance.now();
+    const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduceMotion) {
+      setState({ progress: eased, velocity: 0 });
+      const onScroll = () => {
+        const next = getScrollProgress();
+        setState((previous) => Math.abs(previous.progress - next) < 0.0001 ? previous : { progress: next, velocity: 0 });
+      };
+      window.addEventListener("scroll", onScroll, { passive: true });
+      return () => window.removeEventListener("scroll", onScroll);
+    }
 
     const tick = (now: number) => {
       const target = getScrollProgress();
@@ -42,10 +52,12 @@ export function useSmoothScrollProgress(): ScrollKinematics {
       const instantaneousVelocity = Math.abs(eased - previous) / dt;
       smoothedVelocity += (instantaneousVelocity - smoothedVelocity) * 0.18;
 
-      setState({
-        progress: eased,
-        velocity: smoothedVelocity,
-      });
+      setState((previous) =>
+        Math.abs(previous.progress - eased) > 0.00008 ||
+        Math.abs(previous.velocity - smoothedVelocity) > 0.001
+          ? { progress: eased, velocity: smoothedVelocity }
+          : previous
+      );
 
       lastTime = now;
       frame = requestAnimationFrame(tick);
