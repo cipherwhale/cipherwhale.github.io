@@ -90,6 +90,7 @@ export default function App() {
   const { beta } = getRelativityState(scrollProgress.progress, betaOverride);
 
   useEffect(() => {
+    if (prefersReducedMotion) return;
     const lenis = new Lenis({ duration: 1.15, smoothWheel: true, autoRaf: false });
     let frame = 0;
     const raf = (t: number) => {
@@ -101,7 +102,7 @@ export default function App() {
       cancelAnimationFrame(frame);
       lenis.destroy();
     };
-  }, []);
+  }, [prefersReducedMotion]);
 
   useEffect(() => {
     const update = () => setTime(new Date().toISOString().slice(11, 19) + " UTC");
@@ -112,7 +113,7 @@ export default function App() {
 
   return (
     <div className="relative min-h-screen overflow-hidden bg-space-deep text-space-text font-body">
-      <SpaceBackground />
+      <SpaceBackground beta={beta} reducedMotion={prefersReducedMotion} />
       <BackgroundClock progress={scrollProgress} betaOverride={betaOverride} reducedMotion={prefersReducedMotion} />
       <SpacetimeOverlay progress={scrollProgress.progress} beta={beta} reducedMotion={prefersReducedMotion} />
       <LensingField progress={scrollProgress.progress} reducedMotion={prefersReducedMotion} />
