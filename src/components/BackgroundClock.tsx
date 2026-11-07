@@ -25,7 +25,6 @@ type SchematicClockProps = {
 type RulerProps = {
   label: "S" | "S'";
   progress: number;
-  velocity: number;
   left: string;
   motionScale: number;
   beta: number;
@@ -64,13 +63,13 @@ function RelativisticRuler({
   accent,
 }: RulerProps) {
   const y = 8 + progress * 46 * motionScale;
-  // Only S′ is contracted; the observer frame S remains at rest.
+  // Only S′ is contracted in its horizontal (direction-of-motion) axis; S stays at rest.
   const lengthScale = label === "S'" ? Math.sqrt(1 - beta * beta) : 1;
 
   const top = 18;
   const fullLength = 180;
-  const contractedLength = fullLength * lengthScale;
-  const bottom = top + contractedLength;
+  const bottom = top + fullLength;
+  const horizontalLength = 52 * lengthScale;
   const originX = 62;
   const originY = bottom;
 
@@ -112,9 +111,9 @@ function RelativisticRuler({
 
         <circle cx={originX} cy={originY} r="4" style={{ fill: "rgba(255, 255, 255, 0.78)", stroke: accentStroke, strokeWidth: 1 }} />
 
-        <line x1={originX} y1={originY} x2={originX + 52} y2={originY} style={{ stroke: "rgba(220, 237, 255, 0.34)", strokeWidth: 1, strokeLinecap: "round" }} />
-        <path d={`M ${originX + 52} ${originY} l -7 -4 v 8 z`} style={{ fill: "rgba(220, 237, 255, 0.38)" }} />
-        <text x={originX + 58} y={originY + 4} style={{ fill: "rgba(220, 237, 255, 0.46)", fontSize: 9 }}>
+        <line x1={originX} y1={originY} x2={originX + horizontalLength} y2={originY} style={{ stroke: "rgba(220, 237, 255, 0.34)", strokeWidth: 1, strokeLinecap: "round" }} />
+        <path d={`M ${originX + horizontalLength} ${originY} l -7 -4 v 8 z`} style={{ fill: "rgba(220, 237, 255, 0.38)" }} />
+        <text x={originX + horizontalLength + 6} y={originY + 4} style={{ fill: "rgba(220, 237, 255, 0.46)", fontSize: 9 }}>
           x{axisSuffix}
         </text>
 
@@ -133,7 +132,7 @@ function RelativisticRuler({
         <line x1={originX} y1={top} x2={originX} y2={bottom} style={{ stroke: accentStroke, strokeWidth: 1.2, strokeLinecap: "round" }} />
 
         {Array.from({ length: 11 }).map((_, i) => {
-          const tickY = top + (contractedLength * i) / 10;
+          const tickY = top + (fullLength * i) / 10;
           const major = i % 2 === 0;
           return (
             <g key={i}>
