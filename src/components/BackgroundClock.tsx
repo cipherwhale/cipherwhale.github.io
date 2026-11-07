@@ -1,3 +1,4 @@
+import { getRelativityState, properProgress } from "../physics/relativity";
 type ScrollKinematics = {
   progress: number;
   velocity: number;
@@ -5,6 +6,8 @@ type ScrollKinematics = {
 
 type BackgroundClockProps = {
   progress: number | ScrollKinematics;
+  betaOverride?: number | null;
+  reducedMotion?: boolean;
 };
 
 type SchematicClockProps = {
@@ -25,7 +28,7 @@ type RulerProps = {
   velocity: number;
   left: string;
   motionScale: number;
-  speedScale: number;
+  beta: number;
   accent: "cyan" | "magenta";
 };
 
@@ -52,25 +55,17 @@ function normalizeScroll(input: number | ScrollKinematics): ScrollKinematics {
   };
 }
 
-function getLorentzState(scrollVelocity: number, speedScale: number) {
-  const visualC = 0.42;
-  const beta = clamp((scrollVelocity * speedScale) / visualC, 0, 0.88);
-  const lengthScale = Math.sqrt(1 - beta * beta);
-
-  return { beta, lengthScale };
-}
-
 function RelativisticRuler({
   label,
   progress,
-  velocity,
+  beta,
   left,
   motionScale,
-  speedScale,
   accent,
 }: RulerProps) {
   const y = 8 + progress * 46 * motionScale;
-  const { beta, lengthScale } = getLorentzState(velocity, speedScale);
+  // Only S′ is contracted; the observer frame S remains at rest.
+  const lengthScale = label === "S'" ? Math.sqrt(1 - beta * beta) : 1;
 
   const top = 18;
   const fullLength = 180;
@@ -171,25 +166,23 @@ function RelativisticRuler({
   );
 }
 
-function RelativisticRulers({ progress, velocity }: ScrollKinematics) {
+function RelativisticRulers({ progress, beta }: { progress: number; beta: number }) {
   return (
     <div style={{ position: "absolute", inset: 0, opacity: 1 }} aria-hidden="true">
       <RelativisticRuler
         label="S"
         progress={progress}
-        velocity={velocity}
+        beta={beta}
         left="clamp(0.9rem, 2vw, 2.4rem)"
         motionScale={0.75}
-        speedScale={0.72}
         accent="cyan"
       />
       <RelativisticRuler
         label="S'"
         progress={progress}
-        velocity={velocity}
+        beta={beta}
         left="clamp(5.6rem, 8vw, 9.2rem)"
         motionScale={1.35}
-        speedScale={1.65}
         accent="magenta"
       />
     </div>
@@ -268,19 +261,21 @@ function SchematicClock({
   );
 }
 
-export default function BackgroundClock({ progress: scrollInput }: BackgroundClockProps) {
-  const { progress, velocity } = normalizeScroll(scrollInput);
-  const dilatedMotionProgress = progress * 1.55 + 0.03;
-  const dilatedTickProgress = progress * 0.42;
+export default function BackgroundClock({ progress: scrollInput, betaOverride = null, reducedMotion = false }: BackgroundClockProps) {
+  const { progress } = normalizeScroll(scrollInput);
+  const visualProgress = reducedMotion ? 0.26 : progress;
+  const { beta } = getRelativityState(visualProgress, betaOverride);
+  const dilatedMotionProgress = visualProgress * 1.55 + 0.03;
+  const dilatedTickProgress = properProgress(visualProgress, betaOverride);
 
   return (
     <div className="relativity-clock-layer" aria-hidden="true">
-      <RelativisticRulers progress={progress} velocity={velocity} />
+      <RelativisticRulers progress={visualProgress} beta={beta} />
       <svg className="clock-trajectory" viewBox="0 0 100 100" preserveAspectRatio="none">
         <path className="reference-trajectory" d="M 88 16 Q 75 42 84 78" />
         <path className="dilated-trajectory" d="M 78 20 Q 65 46 74 82" />
       </svg>
-      <SchematicClock className="primary-clock" motionProgress={progress} tickProgress={progress} scale={0.5} opacity={0.26} />
+      <SchematicClock className="primary-clock" motionProgress={visualProgress} tickProgress={visualProgress} scale={0.5} opacity={0.26} />
       <SchematicClock className="dilated-clock" motionProgress={dilatedMotionProgress} tickProgress={dilatedTickProgress} offsetX={-10} offsetY={4} label="tau" scale={0.36} opacity={0.22} />
     </div>
   );
